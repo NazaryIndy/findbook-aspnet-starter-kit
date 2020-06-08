@@ -24,7 +24,7 @@ or
 
 Clone the repo:
 ```sh
-git clone ssh://git@gitlab.roonyx.team:2222/findbook/findbook-aspnet.git
+git clone ssh
 vim docker-compose.yml
 cd findbook-aspnet
 ```
@@ -68,32 +68,32 @@ dotnet FindbookApi.dll
 ```sh
 version: '3.5'
 
-networks: 
+networks:
   fbnetwork:
     driver: bridge
 
 services:
   api:
-    build: 
+    build:
       context: ./findbook-aspnet
       dockerfile: Production.dockerfile
     ports:
       - "5000:80"
-    environment: 
+    environment:
       - DB_CONNECTION_STRING=host=db;database=findbook;username=postgres;password=postgres
     depends_on:
       - db
-    networks: 
+    networks:
       - fbnetwork
   db:
     image: postgres:latest
-    environment: 
+    environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=findbook
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
-    networks: 
+    networks:
       - fbnetwork
 
 ```
